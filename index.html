@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Pobierz IP</title>
+  <script>
+    function getIP(json) {
+      document.getElementById("ip").textContent = json.ip;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var script = document.createElement('script');
+      script.src = 'https://api.ipify.org?format=jsonp&callback=getIP';
+      document.body.appendChild(script);
+    });
+  </script>
 </head>
 <body>
-    <h1>Yaleczka Topeczka</h1>
+    <h1>EZ?</h1>
+  <p>Twoje IP:</p>
+  <p id="ip"></p>
 </body>
 </html>
